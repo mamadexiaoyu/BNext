@@ -1,0 +1,39 @@
+# Add directories or file patterns to ignore during indexing (e.g. foo/ or *.csv)
+.cursorignore
+.gitignore
+.vscode
+.env
+.env.local
+*.class
+*.jar
+*.log
+*.log.*
+# Ignore all files in the node_modules directory
+node_modules/
+# Ignore all files in the target directory
+target/
+
+# Ignore all files in the dist directory
+dist/
+
+# Ignore all files in the build directory
+build/
+
+# Ignore all files in the .idea directory
+.idea/
+
+# Ignore all files in the .vscode directory
+.vscode/
+
+# Ignore all files in the .git directory
+.git/
+
+# Ignore all files in the .gitignore directory
+.gitignore/
+
+# Ignore all files in the .cursorignore directory
+.cursorignore/
+
+# Ignore all files in the .cursorignore directory
+.cursorignore/
+

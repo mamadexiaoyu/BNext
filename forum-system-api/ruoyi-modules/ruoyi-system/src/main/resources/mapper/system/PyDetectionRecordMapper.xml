@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PyDetectionRecordMapper">
+    
+    <resultMap type="PyDetectionRecord" id="PyDetectionRecordResult">
+        <result property="id"    column="id"    />
+        <result property="originalImageId"    column="original_image_id"    />
+        <result property="resultImageUrl"    column="result_image_url"    />
+        <result property="processingTime"    column="processing_time"    />
+        <result property="modelName"    column="model_name"    />
+        <result property="objectCount"    column="object_count"    />
+        <result property="imageWidth"    column="image_width"    />
+        <result property="imageHeight"    column="image_height"    />
+        <result property="detectionItems"    column="detection_items"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+    </resultMap>
+
+    <sql id="selectPyDetectionRecordVo">
+        select id, original_image_id, result_image_url, processing_time, model_name, object_count, image_width, image_height, detection_items, status, create_time, update_time, create_by, update_by from py_detection_record
+    </sql>
+
+    <select id="selectPyDetectionRecordList" parameterType="PyDetectionRecord" resultMap="PyDetectionRecordResult">
+        <include refid="selectPyDetectionRecordVo"/>
+        <where>  
+            <if test="originalImageId != null "> and original_image_id = #{originalImageId}</if>
+            <if test="resultImageUrl != null  and resultImageUrl != ''"> and result_image_url = #{resultImageUrl}</if>
+            <if test="processingTime != null "> and processing_time = #{processingTime}</if>
+            <if test="modelName != null  and modelName != ''"> and model_name like concat('%', #{modelName}, '%')</if>
+            <if test="objectCount != null "> and object_count = #{objectCount}</if>
+            <if test="imageWidth != null "> and image_width = #{imageWidth}</if>
+            <if test="imageHeight != null "> and image_height = #{imageHeight}</if>
+            <if test="detectionItems != null  and detectionItems != ''"> and detection_items = #{detectionItems}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+        order by create_time desc
+    </select>
+    
+    <select id="selectPyDetectionRecordById" parameterType="Long" resultMap="PyDetectionRecordResult">
+        <include refid="selectPyDetectionRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPyDetectionRecord" parameterType="PyDetectionRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into py_detection_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="originalImageId != null">original_image_id,</if>
+            <if test="resultImageUrl != null and resultImageUrl != ''">result_image_url,</if>
+            <if test="processingTime != null">processing_time,</if>
+            <if test="modelName != null">model_name,</if>
+            <if test="objectCount != null">object_count,</if>
+            <if test="imageWidth != null">image_width,</if>
+            <if test="imageHeight != null">image_height,</if>
+            <if test="detectionItems != null">detection_items,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="originalImageId != null">#{originalImageId},</if>
+            <if test="resultImageUrl != null and resultImageUrl != ''">#{resultImageUrl},</if>
+            <if test="processingTime != null">#{processingTime},</if>
+            <if test="modelName != null">#{modelName},</if>
+            <if test="objectCount != null">#{objectCount},</if>
+            <if test="imageWidth != null">#{imageWidth},</if>
+            <if test="imageHeight != null">#{imageHeight},</if>
+            <if test="detectionItems != null">#{detectionItems},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePyDetectionRecord" parameterType="PyDetectionRecord">
+        update py_detection_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="originalImageId != null">original_image_id = #{originalImageId},</if>
+            <if test="resultImageUrl != null and resultImageUrl != ''">result_image_url = #{resultImageUrl},</if>
+            <if test="processingTime != null">processing_time = #{processingTime},</if>
+            <if test="modelName != null">model_name = #{modelName},</if>
+            <if test="objectCount != null">object_count = #{objectCount},</if>
+            <if test="imageWidth != null">image_width = #{imageWidth},</if>
+            <if test="imageHeight != null">image_height = #{imageHeight},</if>
+            <if test="detectionItems != null">detection_items = #{detectionItems},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePyDetectionRecordById" parameterType="Long">
+        delete from py_detection_record where id = #{id}
+    </delete>
+
+    <delete id="deletePyDetectionRecordByIds" parameterType="String">
+        delete from py_detection_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!-- selectPyDetectionRecordByIds -->
+    <select id="selectPyDetectionRecordByIds" parameterType="List" resultMap="PyDetectionRecordResult">
+        select * from py_detection_record where id in
+        <foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

@@ -1,0 +1,30 @@
+/* 全局样式 */
+
+html, body {
+  overflow-y: auto !important;
+  // height: auto !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* 修复 el-dialog 滚动问题 */
+.el-dialog__body {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* 修复详情页滚动问题 */
+.forum-post-detail-container {
+  overflow-y: auto;
+  width: 100%;
+}
+
+/* 修复路由切换滚动问题 */
+.router-view-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PyDetectionImageMapper">
+    
+    <resultMap type="PyDetectionImage" id="PyDetectionImageResult">
+        <result property="id"    column="id"    />
+        <result property="url"    column="url"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="width"    column="width"    />
+        <result property="height"    column="height"    />
+        <result property="mimeType"    column="mime_type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+    </resultMap>
+
+    <sql id="selectPyDetectionImageVo">
+        select id, url, file_name, file_size, width, height, mime_type, create_time, create_by from py_detection_image
+    </sql>
+
+    <select id="selectPyDetectionImageList" parameterType="PyDetectionImage" resultMap="PyDetectionImageResult">
+        <include refid="selectPyDetectionImageVo"/>
+        <where>  
+            <if test="url != null  and url != ''"> and url = #{url}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileSize != null "> and file_size = #{fileSize}</if>
+            <if test="width != null "> and width = #{width}</if>
+            <if test="height != null "> and height = #{height}</if>
+            <if test="mimeType != null  and mimeType != ''"> and mime_type = #{mimeType}</if>
+        </where>
+    </select>
+    
+    <select id="selectPyDetectionImageById" parameterType="Long" resultMap="PyDetectionImageResult">
+        <include refid="selectPyDetectionImageVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertPyDetectionImage" parameterType="PyDetectionImage" useGeneratedKeys="true" keyProperty="id">
+        insert into py_detection_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="url != null and url != ''">url,</if>
+            <if test="fileName != null">file_name,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="width != null">width,</if>
+            <if test="height != null">height,</if>
+            <if test="mimeType != null">mime_type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="fileName != null">#{fileName},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="width != null">#{width},</if>
+            <if test="height != null">#{height},</if>
+            <if test="mimeType != null">#{mimeType},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePyDetectionImage" parameterType="PyDetectionImage">
+        update py_detection_image
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="fileName != null">file_name = #{fileName},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="width != null">width = #{width},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="mimeType != null">mime_type = #{mimeType},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePyDetectionImageById" parameterType="Long">
+        delete from py_detection_image where id = #{id}
+    </delete>
+
+    <delete id="deletePyDetectionImageByIds" parameterType="String">
+        delete from py_detection_image where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
